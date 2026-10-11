@@ -1,0 +1,36 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Администратор" as Admin
+actor "Преподаватель" as Teacher
+
+package "Учет преподавателей и дисциплин" {
+    usecase "Авторизация" as UC_Login_Admin
+    usecase "Удалить\nпреподавателя" as UC_Delete
+    usecase "Добавить\nпреподавателя" as UC_Add
+    usecase "Редактировать\nданные" as UC_EditData
+    usecase "Просмотреть\nсписок\nпреподавателей" as UC_ViewList
+    usecase "Редактировать\nдисциплину" as UC_EditDiscipline
+    usecase "Найти\nпреподавателя по\nФИО" as UC_Find
+    usecase "Назначить\nпреподавателя на\nдисциплину" as UC_Assign
+
+    usecase "Авторизация" as UC_Login_Teacher
+    usecase "Просмотр своих\nданных" as UC_ViewOwnData
+    usecase "Просмотр своих\nдисциплин" as UC_ViewOwnDisciplines
+}
+
+Admin --> UC_Login_Admin
+Admin --> UC_Delete
+Admin --> UC_Add
+Admin --> UC_EditData
+Admin --> UC_ViewList
+Admin --> UC_EditDiscipline
+Admin --> UC_Find
+Admin --> UC_Assign
+
+Teacher --> UC_Login_Teacher
+Teacher --> UC_ViewOwnData
+Teacher --> UC_ViewOwnDisciplines
+
+@enduml
