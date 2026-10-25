@@ -1,0 +1,30 @@
+@startuml
+title ER-диаграмма: Учёт преподавателей и дисциплин
+
+entity teachers {
+  * id : INTEGER <<PK>>
+  --
+  full_name : TEXT
+  email : TEXT
+  department : TEXT
+}
+
+entity disciplines {
+  * id : INTEGER <<PK>>
+  --
+  name : TEXT
+  hours : INTEGER
+  description : TEXT
+}
+
+entity teacher_disciplines {
+  * id : INTEGER <<PK>>
+  --
+  teacher_id : INTEGER <<FK>>
+  discipline_id : INTEGER <<FK>>
+}
+
+teachers ||--o{ teacher_disciplines
+disciplines ||--o{ teacher_disciplines
+
+@enduml
