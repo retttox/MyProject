@@ -37,6 +37,27 @@ def create_database():
         )
     """)
 
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT NOT NULL UNIQUE,
+            password TEXT NOT NULL,
+            role TEXT NOT NULL,
+            teacher_id INTEGER,
+            FOREIGN KEY (teacher_id) REFERENCES teachers(id)
+        )
+    """)
+
+    # Проверяем, есть ли поле teacher_id в существующей таблице
+    cursor.execute("PRAGMA table_info(users)")
+    columns = [column[1] for column in cursor.fetchall()]
+
+    if "teacher_id" not in columns:
+        cursor.execute("""
+            ALTER TABLE users
+            ADD COLUMN teacher_id INTEGER REFERENCES teachers(id)
+        """)
+
     cursor.execute("SELECT COUNT(*) FROM teachers")
     count = cursor.fetchone()[0]
 
@@ -62,12 +83,10 @@ def create_database():
             VALUES (1, 1), (2, 2), (3, 3)
         """)
 
-
     connection.commit()
     connection.close()
 
     print("Database and tables created successfully!")
-
 
 
 if __name__ == "__main__":
