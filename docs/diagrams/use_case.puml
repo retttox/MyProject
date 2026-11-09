@@ -1,39 +1,54 @@
+
 @startuml use_case
 left to right direction
 skinparam packageStyle rectangle
 
 actor "Администратор" as Admin
 actor "Преподаватель" as Teacher
+actor "Новый пользователь" as User
 
 package "Учет преподавателей и дисциплин" {
-    usecase "Авторизация" as UC_AuthAdmin
-    usecase "Авторизация" as UC_AuthTeacher
-    
-    usecase "Удалить\nпреподавателя" as UC_Delete
-    usecase "Добавить\nпреподавателя" as UC_Add
-    usecase "Редактировать\nданные" as UC_EditData
-    usecase "Просмотреть\nсписок\nпреподавателей" as UC_ViewList
-    usecase "Редактировать\nдисциплину" as UC_EditDiscipline
-    usecase "Найти\nпреподавателя по\nФИО" as UC_Find
-    usecase "Назначить\nпреподавателя на\nдисциплину" as UC_Assign
-    
-    usecase "Просмотр своих\nданных" as UC_ViewOwnData
-    usecase "Просмотр своих\nдисциплин" as UC_ViewOwnDisciplines
+
+    usecase "Авторизация" as UC_Auth
+    usecase "Регистрация" as UC_Register
+    usecase "Выход из системы" as UC_Logout
+
+    usecase "Добавить преподавателя" as UC_Add
+    usecase "Удалить преподавателя" as UC_Delete
+    usecase "Редактировать данные преподавателя" as UC_Edit
+    usecase "Просмотреть список преподавателей" as UC_View
+    usecase "Найти преподавателя по ФИО" as UC_Find
+    usecase "Привязать аккаунт к преподавателю" as UC_Link
+
+    usecase "Добавить дисциплину" as UC_AddDisc
+    usecase "Редактировать дисциплину" as UC_EditDisc
+    usecase "Удалить дисциплину" as UC_DeleteDisc
+    usecase "Назначить дисциплину преподавателю" as UC_Assign
+
+    usecase "Просмотреть свои данные" as UC_ViewOwn
+    usecase "Просмотреть свои дисциплины" as UC_ViewDisc
 }
 
-' Связи Администратора
-Admin --> UC_AuthAdmin
-UC_AuthAdmin --> UC_Delete
-UC_AuthAdmin --> UC_Add
-UC_AuthAdmin --> UC_EditData
-UC_AuthAdmin --> UC_ViewList
-UC_AuthAdmin --> UC_EditDiscipline
-UC_AuthAdmin --> UC_Find
-UC_AuthAdmin --> UC_Assign
+User --> UC_Register
+Admin --> UC_Auth
+Teacher --> UC_Auth
 
-' Связи Преподавателя
-Teacher --> UC_AuthTeacher
-UC_AuthTeacher --> UC_ViewOwnData
-UC_AuthTeacher --> UC_ViewOwnDisciplines
+Admin --> UC_Logout
+Teacher --> UC_Logout
+
+Admin --> UC_Add
+Admin --> UC_Delete
+Admin --> UC_Edit
+Admin --> UC_View
+Admin --> UC_Find
+Admin --> UC_Link
+
+Admin --> UC_AddDisc
+Admin --> UC_EditDisc
+Admin --> UC_DeleteDisc
+Admin --> UC_Assign
+
+Teacher --> UC_ViewOwn
+Teacher --> UC_ViewDisc
 
 @enduml
