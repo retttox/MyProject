@@ -1,5 +1,4 @@
-
-@startuml
+@startuml er_diagram
 title ER-диаграмма: Учёт преподавателей и дисциплин
 
 entity teachers {
